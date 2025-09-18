@@ -1,5 +1,6 @@
 from flask import jsonify, request
 from io import StringIO
+from database import create_user
 import csv
 
 def upload_users_file():
@@ -22,7 +23,7 @@ def upload_users_file():
     reader = csv.DictReader(csv_file)
     users = [row for row in reader]
 
-    # for user in users:
-    #     print (f"Adding user: {user}")  # Save users here
+    for user in users:
+        create_user(user['Employee Email'], user['Employee Password'], vacation_year)
 
     return {"users_added": users}, 201
