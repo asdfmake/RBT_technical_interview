@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from io import StringIO
-from database import create_user, create_used_vacations
+from database import create_user, create_used_vacations, create_available_vacations
 from datetime import datetime
 import csv
 
@@ -68,3 +68,29 @@ def get_days_on_vacation(start_date: str, end_date: str):
         "days_on_vacation": delta.days + 1,
         "year": year,
     }
+
+def upload_vacation_days_file():
+    if "file" not in request.files:
+        return {"error": "No file provided"}, 400
+
+    file = request.files["file"]
+
+    if file.filename == "":
+        return {"error": "No file selected"}, 400
+
+    content = file.read().decode("utf-8")
+
+    vacation_year = int(content.splitlines()[0].split(",")[1])  # get vacation year from first line
+
+    content = "\n".join(content.splitlines()[1:])  # Remove the first line
+
+    csv_file = StringIO(content)
+
+    reader = csv.DictReader(csv_file)
+    vacation_days = [row for row in reader]
+
+    for d in vacation_days:
+        create_available_vacations(d['Employee'], d['Total vacation days'], vacation_year)
+
+    return {"vacation_days added": len(vacation_days)}, 201
+

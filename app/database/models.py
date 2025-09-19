@@ -13,10 +13,11 @@ class User(Base):
 
 
 # Total vacations model
-class TotalVacations(Base):
-    __tablename__ = "total_vacations"
+class AvailableVacationDays(Base):
+    __tablename__ = "available_vacation_days"
 
-    user_email = Column(String, nullable=False, primary_key=True)
+    vacation_day_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_email = Column(String, nullable=False)
     total_days = Column(Integer, nullable=False)
     year = Column(Integer, nullable=False)
 
