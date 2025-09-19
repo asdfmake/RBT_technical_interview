@@ -26,7 +26,9 @@ class UsedVacations(Base):
 
     used_vacation_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     user_email = Column(String, nullable=False)
-    used_days = Column(Integer, nullable=False)
+    vacation_start = Column(String, nullable=False)
+    vacation_end = Column(String, nullable=False)
+    days_on_vacation = Column(Integer, nullable=False)
     year = Column(Integer, nullable=False)
 
 Base.metadata.create_all(bind=engine)
