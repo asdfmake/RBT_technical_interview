@@ -7,15 +7,15 @@ app = Flask(__name__)
 def home_route():
     return home()
 
-@app.route("/users/upload", methods=["POST"])
+@app.route("/users/upload/users_list", methods=["POST"])
 def upload_users_route():
     return upload_users_file()
 
-@app.route("/users/vacations/upload", methods=["POST"])
+@app.route("/users/upload/used_vacation", methods=["POST"])
 def upload_used_vacation_route():
     return upload_used_vacation_file()
 
-@app.route("/users/vacations_dates/upload", methods=["POST"])
+@app.route("/users/upload/vacation_days", methods=["POST"])
 def upload_vacation_days_file_route():
     return upload_vacation_days_file()
 
