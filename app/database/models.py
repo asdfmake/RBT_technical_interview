@@ -32,4 +32,14 @@ class UsedVacations(Base):
     days_on_vacation = Column(Integer, nullable=False)
     year = Column(Integer, nullable=False)
 
+    def to_dict(self):
+        return {
+            "used_vacation_id": self.used_vacation_id,
+            "user_email": self.user_email,
+            "vacation_start": self.vacation_start,
+            "vacation_end": self.vacation_end,
+            "days_on_vacation": self.days_on_vacation,
+            "year": self.year
+        }
+
 Base.metadata.create_all(bind=engine)
