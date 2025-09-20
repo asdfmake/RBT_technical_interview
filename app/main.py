@@ -31,14 +31,17 @@ def login_admin_route():
     return admin_login()
 
 @app.route("/employee/get_used_days", methods=["GET"])
+@check_role("employee")
 def get_user_used_days_route():
     return get_user_used_days()
 
 @app.route("/employee/get_available_vacation_days", methods=["GET"])
+@check_role("employee")
 def get_user_available_vacation_days_route():
     return get_user_available_vacation_days()
 
 @app.route("/employee/get_total_days", methods=["GET"])
+@check_role("employee")
 def get_total_days_route():
     return get_user_vacations_total_days()
 

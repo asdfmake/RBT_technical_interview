@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, g
 from app.database import get_user_by_email_and_password
 from .utils import create_token
 from functools import wraps
@@ -50,6 +50,7 @@ def check_role(role):
                 return jsonify({"error": "Invalid token"}), 401
             if data["role"] != role:
                 return jsonify({"error": "Invalid role"}), 401
+            g.token_email = data["email"]
             return fn(*args, **kwargs)
         return wrapper
     return decorator
