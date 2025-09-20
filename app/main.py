@@ -30,7 +30,7 @@ def login_employee_route():
 def login_admin_route():
     return admin_login()
 
-@app.route("/test", methods=["GET"])
+@app.route("/employee/get_used_days", methods=["GET"])
 def test():
     return get_user_used_days()
 
