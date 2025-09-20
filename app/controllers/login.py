@@ -17,7 +17,7 @@ def employee_login():
     if not user or not user.password:
         return jsonify({"error": "Invalid credentials"}), 401
 
-    token = create_token(user, "employee")
+    token = create_token(user.user_email, "employee")
     return jsonify({"token": token})
 
 def admin_login():
@@ -38,9 +38,17 @@ def check_role(role):
     def decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            # token = request.headers.get("token")
-            # data = jwt.decode(token, "hardcoded", algorithms=["HS256"])
-            print(role)
+            token = request.headers.get("token")
+            if not token:
+                return jsonify({"error": "Invalid token"}), 401
+            try:
+                data = jwt.decode(token, "hardcoded", algorithms=["HS256"])
+            except jwt.ExpiredSignatureError:
+                return jsonify({"error": "Expired token"}), 401
+            except:
+                return jsonify({"error": "Invalid token"}), 401
+            if data["role"] != role:
+                return jsonify({"error": "Invalid role"}), 401
             return fn(*args, **kwargs)
         return wrapper
     return decorator

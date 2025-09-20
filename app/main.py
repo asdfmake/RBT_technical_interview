@@ -1,5 +1,5 @@
 from flask import Flask, request
-from controllers import home, upload_users_file, upload_used_vacation_file, upload_vacation_days_file, employee_login, admin_login
+from controllers import home, upload_users_file, upload_used_vacation_file, upload_vacation_days_file, employee_login, admin_login, check_role
 
 app = Flask(__name__)
 
@@ -7,15 +7,18 @@ app = Flask(__name__)
 def home_route():
     return home()
 
-@app.route("/users/upload/users_list", methods=["POST"])
+@app.route("/admin/upload/users_list", methods=["POST"])
+@check_role("admin")
 def upload_users_route():
     return upload_users_file()
 
-@app.route("/users/upload/used_vacation", methods=["POST"])
+@app.route("/admin/upload/used_vacation", methods=["POST"])
+@check_role("admin")
 def upload_used_vacation_route():
     return upload_used_vacation_file()
 
-@app.route("/users/upload/vacation_days", methods=["POST"])
+@app.route("/admin/upload/vacation_days", methods=["POST"])
+@check_role("admin")
 def upload_vacation_days_file_route():
     return upload_vacation_days_file()
 

@@ -10,9 +10,9 @@ def get_days_on_vacation(start_date: str, end_date: str):
         "year": year,
     }
 
-def create_token(user, role):
+def create_token(user_email, role):
     payload = {
-        "email": user.user_email,
+        "email": user_email,
         "role": role,
         "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2)
     }
