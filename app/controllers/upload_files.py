@@ -2,7 +2,7 @@ from flask import jsonify, request
 from io import StringIO
 from app.database import create_user, create_used_vacations, create_available_vacations
 from .utils import get_days_on_vacation
-import csv
+import csv, datetime
 
 def upload_users_file():
     if "file" not in request.files:
@@ -47,10 +47,12 @@ def upload_used_vacation_file():
 
     for uv in used_vacations:
         days_and_year = get_days_on_vacation(uv['Vacation start date'], uv['Vacation end date'])
+        start = datetime.datetime.strptime(uv['Vacation start date'], "%A, %B %d, %Y").date()
+        end = datetime.datetime.strptime(uv['Vacation end date'], "%A, %B %d, %Y").date()
         create_used_vacations(
             uv['Employee'],
-            uv['Vacation start date'],
-            uv['Vacation end date'],
+            start,
+            end,
             days_and_year['days_on_vacation'],
             days_and_year['year']
         )

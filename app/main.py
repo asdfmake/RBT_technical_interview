@@ -1,5 +1,5 @@
 from flask import Flask, request
-from controllers import home, upload_users_file, upload_used_vacation_file, upload_vacation_days_file, employee_login, admin_login, check_role
+from controllers import home, upload_users_file, upload_used_vacation_file, upload_vacation_days_file, employee_login, admin_login, check_role, get_user_used_days, get_user_available_vacation_days, get_user_vacations_total_days
 
 app = Flask(__name__)
 
@@ -29,6 +29,21 @@ def login_employee_route():
 @app.route("/login/admin", methods=["POST"])
 def login_admin_route():
     return admin_login()
+
+@app.route("/employee/get_used_days", methods=["GET"])
+@check_role("employee")
+def get_user_used_days_route():
+    return get_user_used_days()
+
+@app.route("/employee/get_available_vacation_days", methods=["GET"])
+@check_role("employee")
+def get_user_available_vacation_days_route():
+    return get_user_available_vacation_days()
+
+@app.route("/employee/get_total_days", methods=["GET"])
+@check_role("employee")
+def get_total_days_route():
+    return get_user_vacations_total_days()
 
 
 if __name__ == "__main__":
