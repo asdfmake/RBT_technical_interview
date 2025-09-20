@@ -12,7 +12,10 @@ def get_user_used_days():
     return jsonify({"days on vacation": used_days}), 200
 
 def get_user_vacations_total_days():
-    return "nista"
+    employee_email = request.args.get("employee_email")
+    year = request.args.get("year")
+
+    return jsonify({"total days": database.get_employee_total_days_for_year(employee_email, year)}), 200
 
 def get_user_available_vacation_days():
     employee_email = request.args.get("employee_email")
