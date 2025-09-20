@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from io import StringIO
-from database import create_user, create_used_vacations, create_available_vacations
+from app.database import create_user, create_used_vacations, create_available_vacations
 from datetime import datetime
 import csv
 
