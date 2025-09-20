@@ -1,7 +1,7 @@
 from flask import jsonify, request
 from io import StringIO
 from app.database import create_user, create_used_vacations, create_available_vacations
-from utils import get_days_on_vacation
+from .utils import get_days_on_vacation
 import csv
 
 def upload_users_file():
