@@ -6,6 +6,7 @@ import jwt, os
 
 ADMIN_EMAIL = os.environ.get("ADMIN_USEREMAIL")
 ADMIN_PASS  = os.environ.get("ADMIN_PASSWORD")
+JWT_SECRET = os.environ.get("JWT_SECRET")
 
 def employee_login():
     data = request.json
@@ -42,7 +43,7 @@ def check_role(role):
             if not token:
                 return jsonify({"error": "Invalid token"}), 401
             try:
-                data = jwt.decode(token, "hardcoded", algorithms=["HS256"])
+                data = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
             except jwt.ExpiredSignatureError:
                 return jsonify({"error": "Expired token"}), 401
             except:

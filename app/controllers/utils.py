@@ -1,4 +1,6 @@
-import jwt, datetime
+import jwt, datetime, os
+
+JWT_SECRET = os.getenv("JWT_SECRET")
 
 def get_days_on_vacation(start_date: str, end_date: str):
     start = datetime.strptime(start_date, "%A, %B %d, %Y")
@@ -16,6 +18,6 @@ def create_token(user_email, role):
         "role": role,
         "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2)
     }
-    token = jwt.encode(payload, "hardcoded", algorithm="HS256")
+    token = jwt.encode(payload, JWT_SECRET, algorithm="HS256")
     return token
 
