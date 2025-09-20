@@ -1,6 +1,7 @@
 from flask import Flask, request
 from controllers import home, upload_users_file, upload_used_vacation_file, upload_vacation_days_file, employee_login, admin_login, check_role, get_user_used_days, get_user_available_vacation_days, get_user_vacations_total_days
-
+import sys, os
+from dotenv import load_dotenv
 app = Flask(__name__)
 
 @app.route("/")
@@ -45,6 +46,14 @@ def get_user_available_vacation_days_route():
 def get_total_days_route():
     return get_user_vacations_total_days()
 
+load_dotenv()
+
+required_env_vars = ["DATABASE_URL", "ADMIN_USEREMAIL", "ADMIN_PASSWORD", "JWT_SECRET"]
+missing_vars = [var for var in required_env_vars if not os.getenv(var)]
+
+if missing_vars:
+    print(f"ERROR: Missing environment variables: {', '.join(missing_vars)}")
+    sys.exit(1)
 
 if __name__ == "__main__":
     app.run(debug=True)

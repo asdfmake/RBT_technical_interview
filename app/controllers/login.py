@@ -2,6 +2,7 @@ from flask import jsonify, request, g
 from app.database import get_user_by_email_and_password
 from .utils import create_token
 from functools import wraps
+from .errors import missing_field_error
 import jwt, os
 
 ADMIN_EMAIL = os.environ.get("ADMIN_USEREMAIL")
@@ -9,6 +10,10 @@ ADMIN_PASS  = os.environ.get("ADMIN_PASSWORD")
 JWT_SECRET = os.environ.get("JWT_SECRET")
 
 def employee_login():
+    check_login_data = check_login()
+    if check_login_data:
+        return check_login_data
+
     data = request.json
     email = data.get("useremail")
     password = data.get("password")
@@ -22,6 +27,10 @@ def employee_login():
     return jsonify({"token": token})
 
 def admin_login():
+    check_login_data = check_login()
+    if check_login_data:
+        return check_login_data
+
     data = request.json
     email = data.get("useremail")
     password = data.get("password")
@@ -54,3 +63,19 @@ def check_role(role):
             return fn(*args, **kwargs)
         return wrapper
     return decorator
+
+# Helper function, used as middleware to validate login forms
+def check_login():
+    # Validate body
+    if not request.is_json:
+        return jsonify({"error": "Missing JSON in request"}), 400
+
+    data = request.get_json()
+
+    # Validate params
+    required_params = ["useremail", "password"]
+    for field in required_params:
+        if not data.get(field):
+            return missing_field_error(field)
+
+    return False
