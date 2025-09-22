@@ -1,5 +1,5 @@
 from flask import Flask, request
-from controllers import home, upload_users_file, upload_used_vacation_file, upload_vacation_days_file, employee_login, admin_login, check_role, get_user_used_days, get_user_available_vacation_days, get_user_vacations_total_days, user_register_vacation
+from app.controllers import home, upload_users_file, upload_used_vacation_file, upload_vacation_days_file, employee_login, admin_login, check_role, get_user_used_days, get_user_available_vacation_days, get_user_vacations_total_days, user_register_vacation
 import sys, os
 from dotenv import load_dotenv
 app = Flask(__name__)
