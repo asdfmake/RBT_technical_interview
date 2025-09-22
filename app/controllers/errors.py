@@ -5,3 +5,6 @@ def missing_params_error(param: str):
 
 def missing_field_error(field: str):
     return jsonify({"missing field": field}), 400
+
+def wrong_date_format():
+    return jsonify({"message": "wrong date format"}), 400
