@@ -23,14 +23,6 @@ def upload_used_vacation_route():
 def upload_vacation_days_file_route():
     return upload_vacation_days_file()
 
-@app.route("/login/employee", methods=["POST"])
-def login_employee_route():
-    return employee_login()
-
-@app.route("/login/admin", methods=["POST"])
-def login_admin_route():
-    return admin_login()
-
 @app.route("/employee/get_used_days", methods=["GET"])
 @check_role("employee")
 def get_user_used_days_route():
@@ -50,6 +42,15 @@ def get_total_days_route():
 @check_role("employee")
 def user_register_vacation_route():
     return user_register_vacation()
+
+
+@app.route("/login/employee", methods=["POST"])
+def login_employee_route():
+    return employee_login()
+
+@app.route("/login/admin", methods=["POST"])
+def login_admin_route():
+    return admin_login()
 
 load_dotenv()
 
