@@ -1,6 +1,5 @@
 import jwt, datetime, os
-
-JWT_SECRET = os.getenv("JWT_SECRET")
+from app.setup import JWT_SECRET
 
 def get_days_on_vacation(start_date: str, end_date: str):
     """

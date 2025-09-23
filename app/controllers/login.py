@@ -5,10 +5,7 @@ from functools import wraps
 from .errors import missing_field_error, invalid_credentials
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt, os
-
-ADMIN_EMAIL = os.environ.get("ADMIN_USEREMAIL")
-ADMIN_PASS  = os.environ.get("ADMIN_PASSWORD")
-JWT_SECRET = os.environ.get("JWT_SECRET")
+from app.setup import ADMIN_EMAIL, ADMIN_PASS, JWT_SECRET
 
 def employee_login():
     check_login_data = check_login()
