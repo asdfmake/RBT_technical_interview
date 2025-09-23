@@ -195,3 +195,9 @@ When api throws an error, it returns json format response with code **400** with
     "message": "wrong date format"
 }
 ```
+
+## Testing
+There are two ways to test this applications, one is with **postman collection** in root of this project and another one is normal unit testing, to start unit tests run
+```bash
+pytest
+```
