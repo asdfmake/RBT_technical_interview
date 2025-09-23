@@ -1,7 +1,22 @@
 # Solution to technical interview for Red Black Tree
 ## by Ivan Makevic
 
- ---
+---
+
+# Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Migrations](#migrations)
+- [Environment](#environment)
+- [Architecture](#architecture)
+- [Endpoints](#endpoints)
+  - [Login](#login)
+  - [Admin (Upload files)](#admin-upload-files)
+  - [Employee (Get and add vacation data)](#employee-get-and-add-vacation-data)
+- [Errors](#errors)
+- [Testing](#testing)
+
+---
 
 # Features
 - Admin
