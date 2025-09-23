@@ -35,6 +35,20 @@ pip install -r requirements.txt
 flask --app app.main:app run --port 5000
 ```
 
+## Migrations
+**Migrations are dependant on `.env` file and it's `DATABASE_URL` field**
+
+To migrate database tables run.
+```bash
+alembic upgrade head
+```
+
+## Environment
+To successfully run this applications create `.env` file with following fields
+1. DATABASE_URL
+2. ADMIN_USEREMAIL
+3. ADMIN_PASSWORD
+4. JWT_SECRET
 # Architecture
 
 ```

@@ -41,5 +41,3 @@ class UsedVacations(Base):
             "days_on_vacation": self.days_on_vacation,
             "year": self.year
         }
-
-Base.metadata.create_all(bind=engine)
