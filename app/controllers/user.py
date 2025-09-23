@@ -7,6 +7,9 @@ from app.database import create_used_vacations
 
 
 def get_user_used_days():
+    """
+    Get the number of vacation days used by the authenticated user within a specified date range.
+    """
     required_params = ["search_start", "search_end"]
     for param in required_params:
         if not request.args.get(param):
@@ -21,6 +24,9 @@ def get_user_used_days():
     return jsonify({"days on vacation": used_days}), 200
 
 def get_user_vacations_total_days():
+    """
+    Get the total number of vacation days allocated to the authenticated user for a specified year.
+    """
     if not request.args.get("year"):
         return missing_params_error("year")
 
@@ -30,6 +36,9 @@ def get_user_vacations_total_days():
     return jsonify({"total days": database.get_employee_total_days_for_year(employee_email, year)}), 200
 
 def get_user_available_vacation_days():
+    """
+    Get the number of available vacation days for the authenticated user for a specified year.
+    """
     if not request.args.get("year"):
         return missing_params_error("year")
 

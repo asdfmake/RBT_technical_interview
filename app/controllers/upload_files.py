@@ -6,6 +6,10 @@ from werkzeug.security import generate_password_hash
 import csv, datetime
 
 def upload_users_file():
+    """
+    Upload a CSV file containing user information and create users in the database.
+    This function encrypts user passwords before storing them.
+    """
     if "file" not in request.files:
         return {"error": "No file provided"}, 400
 
@@ -16,9 +20,9 @@ def upload_users_file():
     
     content = file.read().decode("utf-8")
 
-    vacation_year = int(content.splitlines()[0].split(",")[1]) # get vacation year from first line
+    vacation_year = int(content.splitlines()[0].split(",")[1])
 
-    content = "\n".join(content.splitlines()[1:])  # Remove the first line
+    content = "\n".join(content.splitlines()[1:])
 
     csv_file = StringIO(content)
 
@@ -31,6 +35,10 @@ def upload_users_file():
     return {"users_added": len(users)}, 201
 
 def upload_used_vacation_file():
+    """
+    Upload a CSV file containing used vacation information and create used vacation records in the database.
+    Before uploading rows, it calculates the number of days on vacation and separates year.
+    """
     if "file" not in request.files:
         return {"error": "No file provided"}, 400
 
@@ -61,6 +69,10 @@ def upload_used_vacation_file():
     return {"Vacations added: ": len(used_vacations)}, 201
 
 def upload_vacation_days_file():
+    """
+    Upload a CSV file containing available vacation days information and create available vacation records in the database.
+    Before uploading rows, it separates year from the first line of the file and stores it separately.
+    """
     if "file" not in request.files:
         return {"error": "No file provided"}, 400
 
@@ -71,9 +83,9 @@ def upload_vacation_days_file():
 
     content = file.read().decode("utf-8")
 
-    vacation_year = int(content.splitlines()[0].split(",")[1])  # get vacation year from first line
+    vacation_year = int(content.splitlines()[0].split(",")[1])
 
-    content = "\n".join(content.splitlines()[1:])  # Remove the first line
+    content = "\n".join(content.splitlines()[1:])
 
     csv_file = StringIO(content)
 

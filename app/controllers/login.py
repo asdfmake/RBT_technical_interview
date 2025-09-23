@@ -49,6 +49,9 @@ def admin_login():
 # Middleware that checks the role
 
 def check_role(role):
+    """
+    Middleware to check if the user has the required role.
+    """
     def decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
