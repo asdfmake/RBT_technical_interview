@@ -3,9 +3,9 @@ from .models import User, UsedVacations, AvailableVacationDays
 import datetime
 from sqlalchemy import and_, or_
 
-def get_user_by_email_and_password(email: str, password: str):
+def get_user_by_email(email: str):
     session = SessionLocal()
-    user = session.query(User).filter_by(user_email=email, password=password).one_or_none()
+    user = session.query(User).filter_by(user_email=email).one_or_none()
     session.close()
     return user
 

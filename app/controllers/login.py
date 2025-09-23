@@ -1,8 +1,9 @@
 from flask import jsonify, request, g
-from app.database import get_user_by_email_and_password
+from app.database import get_user_by_email
 from .utils import create_token
 from functools import wraps
-from .errors import missing_field_error
+from .errors import missing_field_error, invalid_credentials
+from werkzeug.security import generate_password_hash, check_password_hash
 import jwt, os
 
 ADMIN_EMAIL = os.environ.get("ADMIN_USEREMAIL")
@@ -18,10 +19,13 @@ def employee_login():
     email = data.get("useremail")
     password = data.get("password")
 
-    user = get_user_by_email_and_password(email, password)
+    print("email: ", email)
+    print("password: ", password)
 
-    if not user or not user.password:
-        return jsonify({"error": "Invalid credentials"}), 401
+    user = get_user_by_email(email)
+
+    if not user or not check_password_hash(user.password, password):
+        return invalid_credentials()
 
     token = create_token(user.user_email, "employee")
     return jsonify({"token": token})
