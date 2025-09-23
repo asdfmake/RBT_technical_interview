@@ -8,3 +8,6 @@ def missing_field_error(field: str):
 
 def wrong_date_format():
     return jsonify({"message": "wrong date format"}), 400
+
+def invalid_credentials():
+    return jsonify({"error": "Invalid credentials"}), 401

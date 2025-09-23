@@ -2,6 +2,7 @@ from flask import jsonify, request
 from io import StringIO
 from app.database import create_user, create_used_vacations, create_available_vacations
 from .utils import get_days_on_vacation
+from werkzeug.security import generate_password_hash
 import csv, datetime
 
 def upload_users_file():
@@ -25,7 +26,7 @@ def upload_users_file():
     users = [row for row in reader]
 
     for user in users:
-        create_user(user['Employee Email'], user['Employee Password'], vacation_year)
+        create_user(user['Employee Email'], generate_password_hash(user['Employee Password']), vacation_year)
 
     return {"users_added": len(users)}, 201
 
